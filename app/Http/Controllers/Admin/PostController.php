@@ -27,7 +27,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.posts.create');
     }
 
     /**
@@ -36,9 +36,16 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
-        //
+        $data = $request->all();
+        dump($data['title']);
+        $new_post = new Post;
+        $new_post->fill($data);
+        $new_post->slug = $new_post->slugGen($new_post->title);
+        $new_post->save();
+
+        return redirect()->route('admin.posts.index');
     }
 
     /**
