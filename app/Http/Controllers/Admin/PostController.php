@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PostRequest;
 use Illuminate\Http\Request;
 use App\Post;
 
@@ -49,7 +50,7 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::find($id);
-        return view('admin.posts.show', $post);
+        return view('admin.posts.show', compact('post'));
     }
 
     /**
@@ -61,7 +62,7 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::find($id);
-        return view('admin.posts.edit', $post);
+        return view('admin.posts.edit', compact('post'));
     }
 
     /**
@@ -71,9 +72,14 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PostRequest $request, Post $post)
     {
-        //
+
+        $post_saver = $request->all();
+
+        $post->update($post_saver);
+
+        return redirect()->route('admin.posts.index');
     }
 
     /**
@@ -82,8 +88,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return redirect()->route('admin.posts.index');
     }
 }

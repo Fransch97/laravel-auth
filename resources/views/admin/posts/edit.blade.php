@@ -2,22 +2,25 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    <h1>Ciao {{Auth::user()->name}}</h1>
-                </div>
-            </div>
+    <form action="{{route('admin.posts.update', $post)}}" method="POST">
+        @csrf
+        @method('PUT')
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Title</label>
+            <input type="text" name="title" class="form-control" value="{{old('title', $post->title)}}">
+            @error('title')
+                <p class="text-danger">{{$message}}</p>
+            @enderror
         </div>
-    </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Content</label>
+            <textarea class="form-control" name="content" id="" cols="30" rows="10">{{$post->content}}</textarea>
+            @error('content')
+                <p class="text-danger">{{$message}}</p>
+            @enderror
+        </div>
+
+        <button type="submit" class="btn btn-primary">Edit</button>
+      </form>
 </div>
 @endsection

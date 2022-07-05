@@ -19,7 +19,16 @@
                 <td>
                     <a class="btn btn-primary" href="{{ route('admin.posts.edit', $post->id)}}">Edit</a>
                     <a class="btn btn-warning" href="{{ route('admin.posts.show', $post->id)}}">Show</a>
-                    <a class="btn btn-danger" href="{{ route('admin.posts.destroy', $post->id)}}">Delete</a>
+                    <form class="d-inline"
+                    onsubmit=" return confirm('U sure?') "
+                    action="{{route('admin.posts.destroy', $post->id)}}"
+                    method="POST"
+                    >
+                    @csrf
+                    @method('DELETE')
+                 <button type="submit" class="btn btn-danger"> Delete</button>
+                </form>
+            </td>
                 </td>
             </tr>
 
