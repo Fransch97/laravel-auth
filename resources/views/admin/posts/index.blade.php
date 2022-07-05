@@ -1,23 +1,31 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Title</th>
+        <th scope="col">Content</th>
+      </tr>
+    </thead>
+    <tbody>
+        @foreach ( $posts as $post)
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+            <tr>
+                <th scope="row">{{$post->id}}</th>
+                <td>{{$post->title}}</td>
+                <td>{{$post->content}}</td>
+                <td>
+                    <a class="btn btn-primary" href="{{ route('admin.posts.edit', $post->id)}}">Edit</a>
+                    <a class="btn btn-warning" href="{{ route('admin.posts.show', $post->id)}}">Show</a>
+                    <a class="btn btn-danger" href="{{ route('admin.posts.destroy', $post->id)}}">Delete</a>
+                </td>
+            </tr>
 
-                    <h1>Ciao {{Auth::user()->name}}</h1>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
+        @endforeach
+
+    </tbody>
+  </table>
 @endsection
