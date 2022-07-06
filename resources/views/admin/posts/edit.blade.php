@@ -2,25 +2,27 @@
 
 @section('content')
 <div class="container">
-    <form action="{{route('admin.posts.update', $post)}}" method="POST">
+    <form id="edit-form" action="{{route('admin.posts.update', $post)}}" method="POST">
         @csrf
         @method('PUT')
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Title</label>
-            <input type="text" name="title" class="form-control" value="{{old('title' , $post->title)}}">
+            <label  class="form-label">Title</label>
+            <input id="edit-title" type="text" name="title" class="form-control" value="{{old('title' , $post->title)}}">
             @error('title')
                 <p class="text-danger">{{$message}}</p>
             @enderror
+            <p id="p-e-t-error" style="display: none" class="text-danger"></p>
         </div>
         <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Content</label>
-            <textarea class="form-control" name="content" id="" cols="30" rows="10">{{old('content', $post->content)}}</textarea>
+            <label class="form-label">Content</label>
+            <textarea id="edit-content" class="form-control" name="content" cols="30" rows="10">{{old('content', $post->content)}}</textarea>
             @error('content')
                 <p class="text-danger">{{$message}}</p>
             @enderror
+            <p id="p-e-c-error" style="display: none" class="text-danger"></p>
         </div>
 
-        <button type="submit" class="btn btn-primary">Edit</button>
+        <button id="edit-sub" type="submit" class="btn btn-primary">Edit</button>
       </form>
 </div>
 @endsection

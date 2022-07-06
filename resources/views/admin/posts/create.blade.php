@@ -2,24 +2,26 @@
 
 @section('content')
 <div class="container">
-    <form action="{{route('admin.posts.store')}}" method="POST">
+    <form id="create-form" action="{{route('admin.posts.store')}}" method="POST">
         @csrf
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Title</label>
-            <input type="text" name="title" class="form-control" value="{{old('title')}}">
+            <label for="exampleInputEmail1"  class="form-label">Title</label>
+            <input  type="text" name="title" id="create-title" class="form-control" value="{{old('title')}}">
             @error('title')
                 <p class="text-danger">{{$message}}</p>
             @enderror
+            <p style="display: none" id="p-c-t-error" class="text-danger"></p>
         </div>
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Content</label>
-            <textarea class="form-control" name="content" id="" cols="30" rows="10">{{old('content')}}</textarea>
+            <textarea id="create-content" class="form-control" name="content" cols="30" rows="10">{{old('content')}}</textarea>
             @error('content')
                 <p class="text-danger">{{$message}}</p>
             @enderror
+            <p style="display: none" id="p-c-c-error" class="text-danger"></p>
         </div>
 
-        <button type="submit" class="btn btn-primary">Create</button>
+        <button type="submit" id="creade-sub" class="btn btn-primary">Create</button>
       </form>
 </div>
 @endsection
